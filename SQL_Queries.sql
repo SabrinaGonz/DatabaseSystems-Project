@@ -23,9 +23,16 @@ FROM Movies
 ;
 
 -- Find all tv shows in the 
--- Find the 5 movies that have been added the most recently. (Kinda goes go but whatever)
+-- Find the 5 movies that have been added the most recently. 
 -- Find the country that has the most tv shows. 
--- Find the title of tv shows that were frfom Germeny, America and Canada.
+
+-- Find the title of tv shows that were from Germeny, America and Canada.
+SELECT s_title
+FROM Movies
+ inner join Genre
+ inner join Netflix
+    WHERE g_genre = 'comedy' AND n_country = "India" 
+
 -- Find the title of movies released in between the year 2020 and 2021.
 SELECT s_title
 FROM Movies
@@ -33,19 +40,24 @@ FROM Movies
     WHERE re_release between '2020' and '2021'
 ;
 
--- Find all titles released before 1995. 
+-- Find all show titles released before 1995. 
 SELECT s_title
 FROM Movies
  inner join Release
     WHERE re_release < '1995'
     ;
 
--- Find all titles that have "" included in the cast.
+-- Find all movie titles that have "" included in the cast.
+SELECT n_title
+FROM Netflix
+WHERE n_cast = 'Joey King'
+;
+
 -- Insert all movies directed by "" into like list
 INSERT INTO LikeList (m_name)
 SELECT m_name
 FROM Netflix
-WHERE n_director = ""
+WHERE n_director = "Dennis Dugan"
 ;
 -- Update Dislike with all movie titles from the Action genre
 
