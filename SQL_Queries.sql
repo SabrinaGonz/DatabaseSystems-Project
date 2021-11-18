@@ -1,4 +1,4 @@
--- SQLite
+- SQLite
 -- Database Systems Project 
 -- SQL Quieries and Data Modification Statements
 -- Sabrina Gonzalez & Jude Orsua 
@@ -47,19 +47,26 @@ FROM Movies
     WHERE re_release < '1995'
     ;
 
--- Find all movie titles that have "" included in the cast.
+-- Find all movie titles that have Joey King included in the cast.
 SELECT n_title
 FROM Netflix
 WHERE n_cast = 'Joey King'
 ;
 
--- Insert all movies directed by "" into like list
+-- Insert all movies directed by Dennis Dugan into like list
 INSERT INTO LikeList (m_name)
 SELECT m_name
 FROM Netflix
 WHERE n_director = "Dennis Dugan"
 ;
--- Update Dislike with all movie titles from the Action genre
+
+-- Insert all movie titles from the Horror genre into the Dislike list
+INSERT INTO Dislike (m_name)
+SELECT m_name
+FROM Netflix
+WHERE g_genre = "Horror"
+;
+
 
 -- Delete movies releaced after 2019 from dislike list 
 DELETE FROM Dislike
