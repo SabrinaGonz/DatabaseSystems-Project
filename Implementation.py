@@ -3,35 +3,26 @@ from sqlite3 import Error
 import random
 
 def openConnection(dbfile):
-    print("Opening Database: ", dbfile)
 
     conn = None
     try:
         conn = sqlite3.connect(dbfile)
-        print("success")
     except Error as e:
         print(e)
 
-    print("++++++++++++++++++++++++++++++++++")
     return conn 
 
 def closeConnection(conn, dbfile):
-    print("++++++++++++++++++++++++++++++++++")
-    print("Closing Database: ", dbfile)
 
     try:
         conn.close()
-        print("success")
     except Error as e:
         print(e)
 
-    print("++++++++++++++++++++++++++++++++++")
 
 
 
 def dropTables(conn):
-    print("++++++++++++++++++++++++++++++++++")
-    print("Dropping Tables")
 
     try:
         sql = """drop table if exists Titles"""
@@ -56,17 +47,13 @@ def dropTables(conn):
         conn.execute(sql)
 
         conn.commit()
-        print("success")
     except Error as e:
         print(e)
 
-    print("++++++++++++++++++++++++++++++++++")
 
 
 
 def createTables(conn):
-    print("++++++++++++++++++++++++++++++++++")
-    print("Creating Tables")
 
     try:
         sql = """create table Titles (
@@ -99,18 +86,14 @@ def createTables(conn):
         conn.execute(sql)
 
         conn.commit()
-        print("success")
     except Error as e:
         conn.rollback()
         print(e)
 
-    print("++++++++++++++++++++++++++++++++++")
 
 
 
 def populateTables(conn):
-    print("++++++++++++++++++++++++++++++++++")
-    print ("Populating Tables")
 
     try:
         sql = """insert into Titles (t_sid, t_title, t_type, t_cast, t_description)
@@ -134,11 +117,9 @@ def populateTables(conn):
         conn.execute(sql)
     
         conn.commit()
-        print("success")
     except Error as e:
         print(e)
 
-    print("++++++++++++++++++++++++++++++++++")
 
 
 
@@ -153,7 +134,7 @@ def choices(conn):
     return selection
 
 def favorites(conn):
-    print("Here is your current Favorite list")
+    print("\nHere is your current Favorite list")
 
     sql = "select * from Favorite"
     cur = conn.cursor()
@@ -218,12 +199,12 @@ def randomshow(conn):
             where ? = t_sid"""
     cur.execute(sql, (r,))
 
-    l = '{:>10} {:>10} {:>30}'.format("Show ID", "Title", "Show Type")
+    l = '{:>10} {:>10} {:>10}'.format("Show ID", "Title", "Show Type")
     print(l + "\n")
 
     rows = cur.fetchall()
     for row in rows:
-        l = '{:>10} {:>10} {:>30}'.format(row[0], row[1], row [2])
+        l = '{:>10} {:>10} {:>10}'.format(row[0], row[1], row [2])
         print(l + "\n")
     
 
