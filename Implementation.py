@@ -139,17 +139,17 @@ def favorites(conn):
     sql = "select * from Favorite"
     cur = conn.cursor()
     cur.execute(sql)
-    l = '{:>10} {:>10}'.format("Show ID", "Title")
+    l = '{:<10} {:<10}'.format("Show ID", "Title")
     print(l + "\n")
 
     rows = cur.fetchall()
     for row in rows:
-        l = '{:>10} {:>10}'.format(row[0], row[1])
+        l = '{:<10} {:<10}'.format(row[0], row[1])
         print(l)
     print("\n")
 
 def addfavorites(conn):
-    s = input("Please enter the Show ID of the title you wish to add to your Favorites list: ")
+    s = input("Please enter the Show ID (i.e. s100) of the title you wish to add to your Favorites list: ")
     try:
         sql = """insert into Favorite(f_sid, f_title)
                 select t_sid, t_title
@@ -173,14 +173,14 @@ def search(conn):
                 where t_title like ?"""
         cur.execute(sql, (s,))
 
-        l = '{:>10} {:>10}'.format("Show ID", "Title")
-        print(l + "\n")
+        l = '{:<10} {:<10}'.format("Show ID", "Title")
+        print("\n" + l + "\n")
 
         rows = cur.fetchall()
         for row in rows:
-            l = '{:>10} {:>10}'.format(row[0], row[1])
+            l = '{:<10} {:<10}'.format(row[0], row[1])
             print(l)
-    print("If the title you are looking for does not appear, it is not available on Netflix.\n")
+    print("\nIf the title you are looking for does not appear, it is not available on Netflix.\n")
 
     fav = input("If you would like to add a title to your favorites, please enter 1 or 0 if not: ")
     if fav == "1":
@@ -199,12 +199,12 @@ def randomshow(conn):
             where ? = t_sid"""
     cur.execute(sql, (r,))
 
-    l = '{:>10} {:>10} {:>10}'.format("Show ID", "Title", "Show Type")
+    l = '{:<10} {:<70} {:<10}'.format("Show ID", "Title", "Show Type")
     print(l + "\n")
 
     rows = cur.fetchall()
     for row in rows:
-        l = '{:>10} {:>10} {:>10}'.format(row[0], row[1], row [2])
+        l = '{:<10} {:<70} {:<10}'.format(row[0], row[1], row [2])
         print(l + "\n")
     
 
@@ -215,31 +215,31 @@ def typefilter(conn):
     i = int(input())
     return i
 
-def morefilter(conn):
-    m = int(input("If you would like to filter more, please enter 1 or 0 if not: "))
-    return m
+# def morefilter(conn):
+#     m = int(input("If you would like to filter more, please enter 1 or 0 if not: "))
+#     return m
     
-def genrefilter(conn):
-    print("Would you like: ")
-    print("     1. Action & Adventure")
-    print("     2. Anime")
-    print("     3. Children & Family")
-    print("     4. Comedies")
-    print("     5. Horror")
-    print("     6. Romantic")
-    print("     7. Thrillers")
-    g = int(input())
-    return g
+# def genrefilter(conn):
+#     print("Would you like: ")
+#     print("     1. Action & Adventure")
+#     print("     2. Anime")
+#     print("     3. Children & Family")
+#     print("     4. Comedies")
+#     print("     5. Horror")
+#     print("     6. Romantic")
+#     print("     7. Thrillers")
+#     g = int(input())
+#     return g
 
 def filter(conn):
     sql = """drop view if exists movies"""
     conn.execute(sql)
     sql = """drop view if exists shows"""
     conn.execute(sql)
-    sql = """drop view if exists actionadventuremovies"""
-    conn.execute(sql)
-    sql = """drop view if exists actionadventureshows"""
-    conn.execute(sql)
+    # sql = """drop view if exists actionadventuremovies"""
+    # conn.execute(sql)
+    # sql = """drop view if exists actionadventureshows"""
+    # conn.execute(sql)
     conn.commit()
 
     cur = conn.cursor()
@@ -254,12 +254,12 @@ def filter(conn):
         sql = "select * from movies"
         cur.execute(sql)
 
-        l = '{:>10} {:>20} {:>30} {:>20} {:>20}'.format("Show ID", "Title", "Genre", "Release Date", "Rating")
+        l = '{:<7} {:<60} {:<68} {:<6} {:<5}'.format("Show ID", "Title", "Genre", "Release Date", "Rating")
         print(l)
 
         rows = cur.fetchall()
         for row in rows:
-            l = '{:>10} {:>20} {:>30} {:>20} {:>20}'.format(row[0], row[1], row[2], row[3], row[4])
+            l = '{:<7} {:<60} {:<68} {:<6} {:<5}'.format(row[0], row[1], row[2], row[3], row[4])
             print(l)
     else:
         sql = """create view shows(sid, title, genre, release, rating) as 
@@ -270,12 +270,12 @@ def filter(conn):
         conn.commit()
         sql = "select * from shows"
         cur.execute(sql)
-        l = '{:>10} {:>20} {:>30} {:>20} {:>20}'.format("Show ID", "Title", "Genre", "Release Date", "Rating")
+        l = '{:<7} {:<60} {:<68} {:<6} {:<5}'.format("Show ID", "Title", "Genre", "Release Date", "Rating")
         print(l)
 
         rows = cur.fetchall()
         for row in rows:
-            l = '{:>10} {:>20} {:>30} {:>20} {:>20}'.format(row[0], row[1], row[2], row[3], row[4])
+            l = '{:<7} {:<60} {:<68} {:<6} {:<5}'.format(row[0], row[1], row[2], row[3], row[4])
             print(l)
 
     # print()
